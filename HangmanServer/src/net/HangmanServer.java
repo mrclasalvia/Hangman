@@ -5,6 +5,10 @@
  */
 package net;
 
+import console.LocalPlayer;
+import console.OnlinePlayer;
+import hangman.Hangman;
+import hangman.Player;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,6 +30,10 @@ public class HangmanServer {
             ServerSocket serverSocket;
             serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
+            Hangman game = new Hangman();
+            Player player = new OnlinePlayer(socket);
+            // Player player = new ArtificialPlayer();
+            game.playGame(player);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

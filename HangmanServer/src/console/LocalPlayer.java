@@ -9,7 +9,12 @@ package console;
 
 import hangman.Player;
 import hangman.Game;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manage a player playing with the terminal.
@@ -19,12 +24,14 @@ import java.io.Console;
 public class LocalPlayer extends Player {
     
     Console console;
+    BufferedReader in;
         
     /**
      * Constructor.
      */
     public LocalPlayer() {
         console = System.console();
+        in = new BufferedReader(new InputStreamReader(System.in));
     }
     
     @Override
@@ -80,7 +87,12 @@ public class LocalPlayer extends Player {
     public char chooseLetter(Game game) {
         for (;;) {
             System.out.print("Inserisci una lettera: ");
-            String line = console.readLine().trim();
+            String line = null;
+            try {
+                line = this.in.readLine().trim();
+            } catch (IOException ex) {
+                Logger.getLogger(LocalPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (line.length() == 1 && Character.isLetter(line.charAt(0))) {
                 return line.charAt(0);
             } else {
