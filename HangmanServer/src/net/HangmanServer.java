@@ -5,6 +5,12 @@
  */
 package net;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Claudio Cusano <claudio.cusano@unipv.it>
@@ -15,7 +21,14 @@ public class HangmanServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            int port = 8861;
+            ServerSocket serverSocket;
+            serverSocket = new ServerSocket(port);
+            Socket socket = serverSocket.accept();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
 }
