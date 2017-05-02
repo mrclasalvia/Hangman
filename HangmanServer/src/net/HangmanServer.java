@@ -9,6 +9,7 @@ import console.LocalPlayer;
 import console.OnlinePlayer;
 import hangman.Hangman;
 import hangman.Player;
+import hangmanclient.ClientPlayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,6 +35,11 @@ public class HangmanServer {
             Player player = new OnlinePlayer(socket);
             // Player player = new ArtificialPlayer();
             game.playGame(player);
+            
+            String hostName = "192.168.56.1";
+            Socket clientSocket = new Socket(hostName, 8861);
+            ClientPlayer cp = new ClientPlayer(clientSocket);
+            cp.playGame();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
